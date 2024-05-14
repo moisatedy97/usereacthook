@@ -6,16 +6,18 @@ import React from "react";
 
 import { docsConfig } from "@/config/docs";
 import { cn } from "@/lib/utils";
-import { File, Moon, Sun } from "lucide-react";
+import { Calculator, Calendar, CreditCard, File, Moon, Settings, Smile, Sun, User } from "lucide-react";
 import { Button } from "./ui/button";
 import {
+  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator
+  CommandSeparator,
+  CommandShortcut
 } from "./ui/command";
 
 export default function SearchCommand(): React.JSX.Element {

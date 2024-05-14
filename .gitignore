@@ -22,6 +22,8 @@ next-env.d.ts
 /build
 
 # misc
+.vscode
+.idea
 .DS_Store
 *.pem
 
