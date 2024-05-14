@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 
 function HookStatistics({ hookId }: { hookId: number }): React.JSX.Element {
-  const [isThumbsUpClicked, setIsThumbsUpClicked] = useState(false);
-  const [isThumbsDownClicked, setIsThumbsDownClicked] = useState(false);
+  const [isThumbsUpClicked, setIsThumbsUpClicked] = React.useState(false);
+  const [isThumbsDownClicked, setIsThumbsDownClicked] = React.useState(false);
 
   const handleThumbsUpClick = async () => {
     setIsThumbsUpClicked(true);
