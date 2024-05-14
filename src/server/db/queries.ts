@@ -1,5 +1,5 @@
 import { db } from ".";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { hooks, hooksStatistics } from "./schema";
 
 export async function getAllHooks() {
@@ -10,8 +10,8 @@ export async function getPopularHooks() {
   return await db
     .select()
     .from(hooks)
-    .leftJoin(hooksStatistics, eq(hooks.id, hooksStatistics.id))
-    .orderBy(hooksStatistics.copyCount)
+    .leftJoin(hooksStatistics, eq(hooks.id, hooksStatistics.hookId))
+    .orderBy(desc(hooksStatistics.copyCount))
     .limit(4);
 }
 

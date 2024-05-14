@@ -5,6 +5,8 @@ import React from "react";
 async function PopularHooks(): Promise<React.JSX.Element | undefined> {
   const data = await getPopularHooks();
 
+  console.log(data);
+
   if (data && data.length > 0) {
     return (
       <section>
