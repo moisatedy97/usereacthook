@@ -13,14 +13,14 @@ function HookStatistics({ hookId }: { hookId: number }): React.JSX.Element {
     setIsThumbsUpClicked(true);
     setIsThumbsDownClicked(false);
 
-    await axios.get(`/api/hook/statistics/incrementUsefullCount?hookId=${hookId}`);
+    await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hook/statistics/incrementUsefullCount?hookId=${hookId}`);
   };
 
   const handleThumbsDownClick = async () => {
     setIsThumbsDownClicked(true);
     setIsThumbsUpClicked(false);
 
-    await axios.get(`/api/hook/statistics/incrementUselessCount?hookId=${hookId}`);
+    await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hook/statistics/incrementUselessCount?hookId=${hookId}`);
   };
 
   return (

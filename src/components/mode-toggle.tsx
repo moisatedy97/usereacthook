@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
-import useHasMounted from "public/hooks/useHasMounted";
+import useHasMounted from "./hooks/useHasMounted";
 
 export function ModeToggle(): React.JSX.Element | undefined {
   const { theme, setTheme } = useTheme();

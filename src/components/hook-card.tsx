@@ -12,7 +12,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/c
 
 function HookCard({ hook }: { hook: Hook }) {
   const handleIncrementClickCount = async () => {
-    await axios.get(`/api/hook/statistics/incrementClickCount?hookId=${hook.id}`);
+    await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hook/statistics/incrementClickCount?hookId=${hook.id}`);
   };
 
   return (
@@ -58,7 +58,7 @@ const CardCopyAction = ({ hook }: { hook: Hook }): React.JSX.Element => {
 
   const handleCopyHook = async () => {
     await fetchFileContent(hook.source!);
-    await axios.get(`/api/hook/statistics/incrementCopyCount?hookId=${hook.id}`);
+    await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hook/statistics/incrementCopyCount?hookId=${hook.id}`);
 
     addHookToCookies(hook.id);
 
