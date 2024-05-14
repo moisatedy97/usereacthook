@@ -15,10 +15,7 @@ The effect properly cleans up by removing the event listener when the component 
 ```tsx
 import React from "react";
 
-const useClickInside = (
-  ref: React.RefObject<HTMLDivElement>,
-  fn: () => void,
-) => {
+const useClickInside = (ref: React.RefObject<HTMLDivElement>, fn: () => void) => {
   React.useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (ref.current && ref.current.contains(event.target as Node)) {

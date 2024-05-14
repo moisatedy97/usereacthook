@@ -14,10 +14,7 @@ changing styles, or triggering animations when the user hovers over an element.
 ```tsx
 import React from "react";
 
-const useHoverInside = <T extends HTMLElement>(
-  ref: React.RefObject<T>,
-  fn: () => void,
-) => {
+const useHoverInside = <T extends HTMLElement>(ref: React.RefObject<T>, fn: () => void) => {
   React.useEffect(() => {
     const element = ref.current;
 

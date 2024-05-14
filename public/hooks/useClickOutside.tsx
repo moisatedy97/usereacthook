@@ -19,10 +19,7 @@ import React from "react";
  *
  * @template T - A generic parameter that extends HTMLElement to type-check the ref.
  */
-const useClickOutside = <T extends HTMLElement>(
-  ref: React.RefObject<T>,
-  fn: () => void,
-) => {
+const useClickOutside = <T extends HTMLElement>(ref: React.RefObject<T>, fn: () => void) => {
   const handleClickOutside = React.useCallback(
     (event: MouseEvent | TouchEvent) => {
       const element = ref?.current;
@@ -32,7 +29,7 @@ const useClickOutside = <T extends HTMLElement>(
         fn();
       }
     },
-    [ref, fn],
+    [ref, fn]
   );
 
   React.useEffect(() => {

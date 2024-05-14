@@ -26,10 +26,7 @@ import React from "react";
  * If the mouse enters the element, it calls the provided callback function `fn`.
  * The effect properly cleans up by removing the event listener when the component unmounts or the dependencies change.
  */
-const useHoverInside = <T extends HTMLElement>(
-  ref: React.RefObject<T>,
-  fn: () => void,
-) => {
+const useHoverInside = <T extends HTMLElement>(ref: React.RefObject<T>, fn: () => void) => {
   React.useEffect(() => {
     const element = ref.current;
 

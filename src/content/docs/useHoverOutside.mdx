@@ -1,7 +1,6 @@
 ---
 title: useHoverOutside
-description:
-  This hook is designed to handle the 'mouseleave' event for a given element,
+description: This hook is designed to handle the 'mouseleave' event for a given element,
   which is useful for UI interactions where an action needs to be performed once the
   user's mouse leaves a particular area of the interface.
 published: true
@@ -21,10 +20,7 @@ event listener due to changes in the ref object itself.
 ```tsx
 import React from "react";
 
-const useHoverOutside = <T extends HTMLElement>(
-  ref: React.RefObject<T>,
-  fn: () => void,
-) => {
+const useHoverOutside = <T extends HTMLElement>(ref: React.RefObject<T>, fn: () => void) => {
   React.useEffect(() => {
     const element = ref.current;
 

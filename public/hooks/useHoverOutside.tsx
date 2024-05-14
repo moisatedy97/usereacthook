@@ -30,10 +30,7 @@ import { RefObject, useEffect } from "react";
  * potential issues with null references.
  */
 
-const useHoverOutside = <T extends HTMLElement>(
-  ref: RefObject<T>,
-  fn: () => void,
-) => {
+const useHoverOutside = <T extends HTMLElement>(ref: RefObject<T>, fn: () => void) => {
   useEffect(() => {
     const element = ref.current;
 
