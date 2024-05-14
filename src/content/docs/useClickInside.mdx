@@ -1,0 +1,58 @@
+---
+title: useClickInside
+description: Custom React hook that triggers a callback function when a click event occurs inside a specified DOM element.
+published: true
+---
+
+## Overview
+
+This custom hook sets up an event listener for clicks on the document and checks if the click occurred inside the referenced element.
+If the click is inside, it calls the provided callback function `fn`.
+The effect properly cleans up by removing the event listener when the component unmounts or the dependencies change.
+
+## Code
+
+```tsx
+import React from "react";
+
+const useClickInside = (
+  ref: React.RefObject<HTMLDivElement>,
+  fn: () => void,
+) => {
+  React.useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      if (ref.current && ref.current.contains(event.target as Node)) {
+        fn();
+      }
+    };
+
+    // Use capture phase to ensure the click is captured as soon as it happens
+    document.addEventListener("click", handleClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleClick, true);
+    };
+  }, [ref, fn]);
+};
+
+export default useClickInside;
+```
+
+## API
+
+### Parameters
+
+ref - A React ref object pointing to the target DOM element.
+fn - A callback function to be executed when a click event is detected inside the element.
+
+## Examples
+
+```tsx
+const ref = useRef<HTMLDivElement>(null);
+
+useClickInside(ref, () => {
+  console.log("Element was clicked inside");
+});
+
+return <div ref={ref}>Click inside me!</div>;
+```

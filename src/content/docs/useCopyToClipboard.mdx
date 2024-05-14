@@ -1,0 +1,87 @@
+---
+title: useCopyToClipboard
+description: Copies a given text to the clipboard.
+published: true
+---
+
+## Overview
+
+This hook manages a state `copied` that indicates whether text has been recently copied to the clipboard.
+It provides a function `copyText` that can be used to initiate copying of text.
+The `copied` state automatically resets to false after a specified delay.
+
+## Code
+
+#### The function attempts to copy a provided string to the system clipboard
+
+```tsx
+const copyToClipboard = async (value: string | undefined): Promise<boolean> => {
+  if (!value || typeof navigator === "undefined") {
+    return false;
+  }
+
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+```
+
+#### TheReact hook that provides clipboard copying functionality
+
+```tsx
+import React from "react";
+
+const useCopyToClipboard = (resetDelay: number = 3000) => {
+  const [copied, setCopied] = React.useState(false);
+
+  const copyText = React.useCallback(async (text: string | undefined) => {
+    const result = await copyToClipboard(text);
+    setCopied(result);
+  }, []);
+
+  React.useEffect(() => {
+    let timerId: NodeJS.Timeout | null = null;
+
+    if (copied) {
+      timerId = setTimeout(() => setCopied(false), resetDelay);
+    }
+
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
+  }, [copied, resetDelay]);
+
+  return [copied, copyText] as const;
+};
+
+export default useCopyToClipboard;
+```
+
+## API
+
+### Parameters
+
+resetDelay - The delay in milliseconds after which the `copied` state is reset to false.
+
+### Return
+
+A tuple containing:
+
+- copied - A boolean value that indicates whether text has been recently copied to the clipboard.
+- copyText - A function that can be used to initiate copying of text.
+
+## Examples
+
+```tsx
+const [copied, copyText] = useCopyToClipboard(3000);
+
+return (
+  <>
+    <button onClick={() => copyText("Hello World")}>Copy Text</button>
+    {copied && <p>Text copied to clipboard</p>}
+  </>
+);
+```

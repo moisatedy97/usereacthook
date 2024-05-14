@@ -1,0 +1,57 @@
+---
+title: useHoverInside
+description: Custom React hook that triggers a callback function when a mouse hover event occurs inside a specified DOM element.
+published: true
+---
+
+## Overview
+
+This hook is particularly useful for handling hover interactions within specific components, such as displaying tooltips,
+changing styles, or triggering animations when the user hovers over an element.
+
+## Code
+
+```tsx
+import React from "react";
+
+const useHoverInside = <T extends HTMLElement>(
+  ref: React.RefObject<T>,
+  fn: () => void,
+) => {
+  React.useEffect(() => {
+    const element = ref.current;
+
+    if (element) {
+      const handleMouseEnter = () => fn();
+      element.addEventListener("mouseenter", handleMouseEnter);
+
+      return () => {
+        element.removeEventListener("mouseenter", handleMouseEnter);
+      };
+    }
+  }, [ref, fn]); // Include ref and fn in the dependency array to handle changes in the ref or the function
+};
+
+export default useHoverInside;
+```
+
+## API
+
+### Parameters
+
+T - A generic parameter that extends HTMLElement to type-check the ref.
+
+ref - A React ref object pointing to the target DOM element.
+fn - A callback function to be executed when a hover event is detected inside the element.
+
+## Examples
+
+```tsx
+const ref = useRef<HTMLDivElement>(null);
+
+useHoverInside(ref, () => {
+  console.log("Mouse has entered the element");
+});
+
+return <div ref={ref}>Hover over me!</div>;
+```

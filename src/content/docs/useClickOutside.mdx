@@ -1,0 +1,70 @@
+---
+title: useClickOutside
+description: Custom React hook that triggers a function when a click occurs outside a specified element.
+published: true
+---
+
+## Overview
+
+This custom hook is particularly useful for closing modal windows, dropdown menus, or resetting states
+when the user interacts with the rest of the application outside a specific UI component.
+
+## Code
+
+```tsx
+"use client";
+
+import React from "react";
+
+const useClickOutside = <T extends HTMLElement>(
+  ref: React.RefObject<T>,
+  fn: () => void,
+) => {
+  const handleClickOutside = React.useCallback(
+    (event: MouseEvent | TouchEvent) => {
+      const element = ref?.current;
+      const target = event.target as Node | null;
+
+      if (element && target && !element.contains(target)) {
+        fn();
+      }
+    },
+    [ref, fn],
+  );
+
+  React.useEffect(() => {
+    // Adding event listeners to handle clicks and touch events outside the referenced element.
+    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    // Cleanup function to remove event listeners when the component unmounts or dependencies change.
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+};
+
+export default useClickOutside;
+```
+
+## API
+
+### Parameters
+
+T - A generic parameter that extends HTMLElement to type-check the ref.
+
+ref - A React ref object pointing to the element to monitor.
+fn - A function to execute when a click outside the referenced element is detected.
+
+## Examples
+
+```tsx
+const modalRef = useRef(null);
+
+useClickOutside(modalRef, () => {
+  console.log("Clicked outside the modal!");
+
+  closeModal();
+});
+```

@@ -1,0 +1,76 @@
+---
+title: useKeyboardCommands
+description: Custom React hook that allows you to handle specific keyboard commands.
+published: true
+new: true
+---
+
+## Overview
+
+This custom hook listens for keydown events and triggers a callback function with the specific command.
+
+## Code
+
+```tsx
+import React from "react";
+
+const useKeyboardCommands = (fn: KeyboardCommandCallback) => {
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Detect ⌘ + k on Mac, Ctrl + k on Windows
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault();
+        fn("cmd-k");
+      }
+
+      // Handle other specific keys
+      switch (event.key) {
+        case "Escape":
+          fn("escape");
+          break;
+        case "Enter":
+          fn("enter");
+          break;
+        case "ArrowDown":
+          fn("down");
+          break;
+        case "ArrowUp":
+          fn("up");
+          break;
+      }
+    };
+
+    // Register the event listener for the 'keydown' event
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [fn]); // Effect dependencies
+};
+
+export default useKeyboardCommands;
+```
+
+## API
+
+### Parameters
+
+fn - A callback function that is called with the detected keyboard command.
+
+## Examples
+
+```tsx
+const handleCommand = (command: KeyboardCommand) => {
+  console.log(`Command triggered: ${command}`);
+};
+
+useKeyboardCommands(handleCommand);
+
+return (
+  <>
+    <button onClick={() => handleCommand("cmd-k")}>Copy Text</button>
+  </>
+);
+```
