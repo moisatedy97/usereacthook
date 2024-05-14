@@ -1,0 +1,6 @@
+**/dist/**/*.js
+**/.next/**/*.js
+**/.velite/**/*.js
+**/public/**/*.js
+**/react-i18next.js
+**/react-i18next.min.js
