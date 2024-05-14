@@ -6,7 +6,7 @@ export default {
   schema: "./src/server/db/schema.ts",
   dialect: "mysql",
   dbCredentials: {
-    url: env.DATABASE_URL,
+    url: env.DATABASE_URL
   },
-  tablesFilter: ["usereacthook_*"],
+  tablesFilter: ["usereacthook_*"]
 } satisfies Config;

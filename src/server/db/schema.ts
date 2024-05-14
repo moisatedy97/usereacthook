@@ -2,13 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { relations, sql } from "drizzle-orm";
-import {
-  bigint,
-  index,
-  mysqlTableCreator,
-  timestamp,
-  varchar,
-} from "drizzle-orm/mysql-core";
+import { bigint, index, mysqlTableCreator, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -28,18 +22,18 @@ export const hooks = createTable(
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
+    updatedAt: timestamp("updatedAt").onUpdateNow()
   },
   (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  }),
+    nameIndex: index("name_idx").on(example.name)
+  })
 );
 
 export const hooksRelations = relations(hooks, ({ one }) => ({
   hooksStatistics: one(hooksStatistics, {
     fields: [hooks.id],
-    references: [hooksStatistics.hookId],
-  }),
+    references: [hooksStatistics.hookId]
+  })
 }));
 
 export const hooksStatistics = createTable("hooks_statistics", {
@@ -51,7 +45,7 @@ export const hooksStatistics = createTable("hooks_statistics", {
   uselessCount: bigint("useless_count", { mode: "number" }).default(0),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
+    .notNull()
 });
 
 export type Hook = typeof hooks.$inferSelect;
