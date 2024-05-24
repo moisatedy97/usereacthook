@@ -18,7 +18,7 @@ function HookCard({ hook }: { hook: Hook }) {
   return (
     <Card className="hover:border-gradient group relative w-full">
       <CardHeader>
-        <CardTitle className="text-gradient mb-2">{hook.name}</CardTitle>
+        <CardTitle className="text-gradient mb-2 truncate">{hook.name}</CardTitle>
         <CardDescription className="line-clamp-2">{hook.description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-wrap">
